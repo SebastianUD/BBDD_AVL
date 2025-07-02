@@ -253,7 +253,7 @@ class ArbolAVL:
         print("\n[VISUALIZACIÓN DEL ÁRBOL AVL]")
         print(arbol_bt)
         
-        print(f"\nAltura del árbol: {arbol_bt.height}")
+        print(f"\nAltura del árbol: {1 + arbol_bt.height}")
         print(f"Número de nodos: {arbol_bt.size}")
         print(f"Número de hojas: {arbol_bt.leaf_count}")
 
