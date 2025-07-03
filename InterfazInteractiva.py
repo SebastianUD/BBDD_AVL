@@ -152,31 +152,15 @@ class InterfazInteractiva:
         print(f"\nDatos actuales: {estudiante_actual}")
         print("\nIngrese los nuevos datos (Enter para mantener el actual):")
         
-        # Solicitar nuevos datos
-        nuevo_codigo = codigo
-        codigo_input = input(f"Nuevo código [{codigo}]: ")
         
-        if codigo_input:
-            # Validar nuevo código
-            while True:
-                try:
-                    nuevo_codigo = int(codigo_input)
-                    if nuevo_codigo != codigo and self.gestor.buscar_por_codigo(nuevo_codigo):
-                        print(f"[ADVERTENCIA] El código {nuevo_codigo} ya existe. Intente con otro código.")
-                        codigo_input = input("Nuevo código: ")
-                        continue
-                    break
-                except ValueError:
-                    print("[ERROR] El código debe ser un número entero.")
-                    codigo_input = input("Nuevo código: ")
-        
+        print("\nNo se puede actualizar el código del estudiante (es una clave primaria).")
         # Obtener resto de datos con valores por defecto
         nuevo_nombre = input(f"Nombre [{estudiante_actual.nombre}]: ") or estudiante_actual.nombre
         nuevo_correo = input(f"Correo [{estudiante_actual.correo}]: ") or estudiante_actual.correo
         nueva_facultad = input(f"Facultad [{estudiante_actual.facultad}]: ") or estudiante_actual.facultad
         nueva_carrera = input(f"Carrera [{estudiante_actual.carrera}]: ") or estudiante_actual.carrera
         
-        nuevo_estudiante = Estudiante(nuevo_codigo, nuevo_nombre, nuevo_correo, nueva_facultad, nueva_carrera)
+        nuevo_estudiante = Estudiante(codigo, nuevo_nombre, nuevo_correo, nueva_facultad, nueva_carrera)
         self.gestor.actualizar_estudiante(codigo, nuevo_estudiante)
         
         print(f"\n[ÉXITO] Estudiante actualizado correctamente.")
