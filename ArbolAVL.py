@@ -7,19 +7,55 @@ from binarytree import Node as BinaryTreeNode
 # Árbol AVL completo con todas las operaciones
 class ArbolAVL:
     def __init__(self):
+        """
+        Este método será responsable de inicializar un nuevo árbol AVL vacío
+
+        """
         self.raiz: Optional[NodoAVL] = None
 
     def obtener_altura(self, nodo: Optional[NodoAVL]) -> int:
+        """
+        Este método será responsable de obtener la altura de un nodo
+
+        Args:
+            nodo (Optional[NodoAVL]): El nodo del cual se desea obtener la altura
+
+        Returns:
+            int: La altura del nodo, 0 si el nodo es None
+        """
         return nodo.altura if nodo else 0
 
     def obtener_balance(self, nodo: Optional[NodoAVL]) -> int:
+        """
+        Este método será responsable de calcular el factor de balance de un nodo
+
+        Args:
+            nodo (Optional[NodoAVL]): El nodo del cual se desea calcular el balance
+
+        Returns:
+            int: El factor de balance (altura derecha - altura izquierda), 0 si el nodo es None
+        """
         return self.obtener_altura(nodo.derecha) - self.obtener_altura(nodo.izquierda) if nodo else 0
 
     def actualizar_altura(self, nodo: NodoAVL):
-        """Actualiza la altura de un nodo basándose en sus hijos"""
+        """
+        Este método será responsable de actualizar la altura de un nodo basándose en sus hijos
+
+        Args:
+            nodo (NodoAVL): El nodo cuya altura se desea actualizar
+        """
         nodo.altura = 1 + max(self.obtener_altura(nodo.izquierda), self.obtener_altura(nodo.derecha))
 
     def rotacion_derecha(self, y: NodoAVL) -> NodoAVL:
+        """
+        Este método será responsable de realizar una rotación derecha en el árbol AVL
+
+        Args:
+            y (NodoAVL): El nodo raíz del subárbol que se va a rotar
+
+        Returns:
+            NodoAVL: El nuevo nodo raíz después de la rotación
+        """
         x = y.izquierda
         T2 = x.derecha
         
@@ -35,6 +71,15 @@ class ArbolAVL:
         return x
 
     def rotacion_izquierda(self, x: NodoAVL) -> NodoAVL:
+        """
+        Este método será responsable de realizar una rotación izquierda en el árbol AVL
+
+        Args:
+            x (NodoAVL): El nodo raíz del subárbol que se va a rotar
+
+        Returns:
+            NodoAVL: El nuevo nodo raíz después de la rotación
+        """
         y = x.derecha
         T2 = y.izquierda
         
@@ -50,7 +95,16 @@ class ArbolAVL:
         return y
 
     def balancear_nodo(self, nodo: NodoAVL, codigo: int) -> NodoAVL:
-        """Balancea un nodo si es necesario después de inserción/eliminación"""
+        """
+        Este método será responsable de balancear un nodo si es necesario después de inserción/eliminación
+
+        Args:
+            nodo (NodoAVL): El nodo que se va a balancear
+            codigo (int): El código del estudiante que se insertó/eliminó para determinar el tipo de rotación
+
+        Returns:
+            NodoAVL: El nodo balanceado (puede ser el mismo nodo si no necesitaba balanceo)
+        """
         balance = self.obtener_balance(nodo)
         
         if abs(balance) > 1:
@@ -77,6 +131,17 @@ class ArbolAVL:
         return nodo
 
     def insertar(self, nodo: Optional[NodoAVL], estudiante: Estudiante, mostrar_mensajes: bool = True) -> NodoAVL:
+        """
+        Este método será responsable de insertar un nuevo estudiante en el árbol AVL
+
+        Args:
+            nodo (Optional[NodoAVL]): El nodo actual donde se intenta insertar
+            estudiante (Estudiante): El estudiante que se va a insertar
+            mostrar_mensajes (bool): Si se deben mostrar mensajes de debug durante la inserción
+
+        Returns:
+            NodoAVL: El nodo raíz del subárbol después de la inserción y balanceo
+        """
         # Inserción normal BST
         if not nodo:
             if mostrar_mensajes:
@@ -97,12 +162,30 @@ class ArbolAVL:
         return self.balancear_nodo(nodo, estudiante.codigo)
 
     def obtener_maximo_valor_nodo(self, nodo: NodoAVL) -> NodoAVL:
-        """Encuentra el nodo con el valor máximo en el subárbol"""
+        """
+        Este método encontrará el nodo con el valor máximo en el subárbol
+
+        Args:
+            nodo (NodoAVL): El nodo raíz del subárbol donde buscar el máximo
+
+        Returns:
+            NodoAVL: El nodo que contiene el valor máximo
+        """
         while nodo.derecha:
             nodo = nodo.derecha
         return nodo
 
     def eliminar(self, nodo: Optional[NodoAVL], codigo: int) -> Optional[NodoAVL]:
+        """
+        Este método será responsable de eliminar un estudiante del árbol AVL
+
+        Args:
+            nodo (Optional[NodoAVL]): El nodo actual donde se busca el estudiante a eliminar
+            codigo (int): El código del estudiante que se va a eliminar
+
+        Returns:
+            Optional[NodoAVL]: El nodo raíz del subárbol después de la eliminación y balanceo
+        """
         if not nodo:
             print(f"[ADVERTENCIA] Código {codigo} no encontrado para eliminar.")
             return nodo
@@ -153,15 +236,33 @@ class ArbolAVL:
         return nodo
 
     def agregar_estudiante(self, estudiante: Estudiante):
+        """
+        Este método será responsable de agregar un estudiante al árbol AVL
+
+        Args:
+            estudiante (Estudiante): El estudiante que se va a agregar al árbol
+        """
         print(f"\n[OPERACIÓN] Insertando estudiante con código {estudiante.codigo}")
         self.raiz = self.insertar(self.raiz, estudiante)
 
     def eliminar_estudiante(self, codigo: int):
+        """
+        Este método será responsable de eliminar un estudiante del árbol AVL
+
+        Args:
+            codigo (int): El código del estudiante que se va a eliminar
+        """
         print(f"\n[OPERACIÓN] Eliminando estudiante con código {codigo}")
         self.raiz = self.eliminar(self.raiz, codigo)
 
     def actualizar_estudiante(self, codigo: int, nuevo_estudiante: Estudiante):
-        """Actualiza un estudiante eliminando el antiguo e insertando el nuevo"""
+        """
+        Este método será responsable de actualizar un estudiante eliminando el antiguo e insertando el nuevo
+
+        Args:
+            codigo (int): El código del estudiante que se va a actualizar
+            nuevo_estudiante (Estudiante): Los nuevos datos del estudiante
+        """
         print(f"\n[OPERACIÓN] Actualizando estudiante con código {codigo}")
         self.raiz = self.eliminar(self.raiz, codigo)
         self.raiz = self.insertar(self.raiz, nuevo_estudiante)
@@ -169,13 +270,27 @@ class ArbolAVL:
             print(f"[ACTUALIZACIÓN] Estudiante con código {codigo} actualizado.")
 
     def inorden(self, nodo: Optional[NodoAVL]):
+        """
+        Este método será responsable de realizar un recorrido inorden del árbol AVL
+
+        Args:
+            nodo (Optional[NodoAVL]): El nodo actual en el recorrido
+        """
         if nodo:
             self.inorden(nodo.izquierda)
             print(f"{nodo.estudiante.codigo} - {nodo.estudiante.nombre}")
             self.inorden(nodo.derecha)
 
     def buscar_por_codigo(self, codigo: int) -> Optional[Estudiante]:
-        """Búsqueda binaria en el árbol AVL"""
+        """
+        Este método será responsable de buscar un estudiante por su código usando búsqueda binaria
+
+        Args:
+            codigo (int): El código del estudiante que se busca
+
+        Returns:
+            Optional[Estudiante]: El estudiante encontrado o None si no existe
+        """
         nodo = self.raiz
         while nodo:
             if codigo == nodo.estudiante.codigo:
@@ -187,7 +302,15 @@ class ArbolAVL:
         return None
 
     def convertir_a_binarytree(self, nodo: Optional[NodoAVL]) -> Optional[BinaryTreeNode]:
-        """Convierte el árbol AVL a formato binarytree para visualización"""
+        """
+        Este método será responsable de convertir el árbol AVL a formato binarytree para visualización
+
+        Args:
+            nodo (Optional[NodoAVL]): El nodo actual que se está convirtiendo
+
+        Returns:
+            Optional[BinaryTreeNode]: El nodo convertido a formato binarytree
+        """
         if not nodo:
             return None
         
@@ -198,7 +321,10 @@ class ArbolAVL:
         return bt_node
     
     def mostrar_arbol_binarytree(self):
-        """Muestra el árbol usando la librería binarytree"""
+        """
+        Este método será responsable de mostrar el árbol usando la librería binarytree
+
+        """
         if not self.raiz:
             print("Árbol vacío")
             return

@@ -9,15 +9,31 @@ from GestorBD import GestorBD
 # Interfaz interactiva
 class InterfazInteractiva:
     def __init__(self):
+        """
+        Este método será responsable de inicializar la interfaz interactiva
+
+        """
         self.gestor = GestorBD()
 
     def limpiar_pantalla(self):
+        """
+        Este método será responsable de limpiar la pantalla de la consola
+
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def pausar(self):
+        """
+        Este método será responsable de pausar la ejecución hasta que el usuario presione Enter
+
+        """
         input("\nPresione Enter para continuar...")
 
     def mostrar_menu(self):
+        """
+        Este método será responsable de mostrar el menú principal del sistema
+
+        """
         print("\n" + "="*50)
         print("   GESTOR DE BASE DE DATOS - ÁRBOLES AVL")
         print("="*50)
@@ -31,7 +47,15 @@ class InterfazInteractiva:
         print("-"*50)
 
     def obtener_codigo(self, mensaje: str = "Código: ") -> Optional[int]:
-        """Solicita y valida un código entero"""
+        """
+        Este método será responsable de solicitar y validar un código entero
+
+        Args:
+            mensaje (str): El mensaje que se muestra al usuario para solicitar el código
+
+        Returns:
+            Optional[int]: El código entero válido ingresado por el usuario o None si hubo error
+        """
         try:
             return int(input(mensaje))
         except ValueError:
@@ -39,7 +63,15 @@ class InterfazInteractiva:
             return None
 
     def solicitar_datos_estudiante(self, codigo_actual: Optional[int] = None) -> Optional[Estudiante]:
-        """Solicita los datos de un estudiante con validación"""
+        """
+        Este método será responsable de solicitar los datos de un estudiante con validación
+
+        Args:
+            codigo_actual (Optional[int]): El código actual del estudiante (para actualizaciones)
+
+        Returns:
+            Optional[Estudiante]: Una instancia de Estudiante con los datos ingresados o None si hubo error
+        """
         # Obtener código
         if codigo_actual is None:
             codigo = self.obtener_codigo()
@@ -77,6 +109,10 @@ class InterfazInteractiva:
         return Estudiante(codigo, nombre, correo, facultad, carrera)
 
     def menu_agregar(self):
+        """
+        Este método será responsable de manejar el menú para agregar un nuevo estudiante
+
+        """
         print("\n--- AGREGAR ESTUDIANTE ---")
         estudiante = self.solicitar_datos_estudiante()
         if estudiante:
@@ -85,6 +121,10 @@ class InterfazInteractiva:
             self.gestor.mostrar_arbol_visual()
 
     def menu_buscar_codigo(self):
+        """
+        Este método será responsable de manejar el menú para buscar un estudiante por código
+
+        """
         print("\n--- BUSCAR POR CÓDIGO ---")
         codigo = self.obtener_codigo("Ingrese el código a buscar: ")
         if codigo is not None:
@@ -95,6 +135,10 @@ class InterfazInteractiva:
                 print(f"\n[NO ENCONTRADO] No existe estudiante con código {codigo}")
 
     def menu_actualizar(self):
+        """
+        Este método será responsable de manejar el menú para actualizar un estudiante existente
+
+        """
         print("\n--- ACTUALIZAR ESTUDIANTE ---")
         codigo = self.obtener_codigo("Código del estudiante a actualizar: ")
         if codigo is None:
@@ -139,6 +183,10 @@ class InterfazInteractiva:
         self.gestor.mostrar_arbol_visual()
 
     def menu_eliminar(self):
+        """
+        Este método será responsable de manejar el menú para eliminar un estudiante
+
+        """
         print("\n--- ELIMINAR ESTUDIANTE ---")
         codigo = self.obtener_codigo("Código del estudiante a eliminar: ")
         if codigo is None:
@@ -160,7 +208,10 @@ class InterfazInteractiva:
             print("\n[CANCELADO] Operación cancelada.")
 
     def ejecutar(self):
-        """Bucle principal del programa"""
+        """
+        Este método será responsable de ejecutar el bucle principal del programa
+
+        """
         opciones = {
             '1': self.menu_agregar,
             '2': self.menu_buscar_codigo,
