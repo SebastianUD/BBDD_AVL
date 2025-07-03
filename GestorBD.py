@@ -4,9 +4,9 @@ from typing import Optional, List
 from ArbolAVL import ArbolAVL
 from Estudiante import Estudiante
 from NodoAVL import NodoAVL
+from IGestorBD import IGestorBD
 
-# Gestor de base de datos que usa JSON y el árbol AVL
-class GestorBD:
+class GestorBD(IGestorBD):
     def __init__(self, archivo_json="estudiantes.json"):
         """
         Este método será responsable de inicializar el gestor de base de datos
@@ -22,7 +22,6 @@ class GestorBD:
     def cargar_datos(self):
         """
         Este método será responsable de cargar los datos desde el archivo JSON al árbol AVL
-
         """
         try:
             with open(self.archivo_json, "r", encoding="utf-8") as archivo:
@@ -41,7 +40,6 @@ class GestorBD:
     def guardar_en_json(self):
         """
         Este método será responsable de guardar todos los datos del árbol AVL en el archivo JSON
-
         """
         datos = []
         self._recolectar_datos(self.arbol.raiz, datos)
@@ -114,7 +112,6 @@ class GestorBD:
     def mostrar_inorden(self):
         """
         Este método será responsable de mostrar todos los estudiantes en orden por código
-
         """
         print("\n[LISTADO] Estudiantes en orden por código:")
         if self.arbol.raiz:
@@ -125,7 +122,6 @@ class GestorBD:
     def mostrar_arbol_visual(self):
         """
         Este método será responsable de mostrar la estructura visual del árbol AVL
-
         """
         print("\n[ESTRUCTURA] Árbol AVL:")
         if self.arbol.raiz:

@@ -1,1 +1,23 @@
-[]
+[
+    {
+        "codigo": 20221020035,
+        "nombre": "Daniel Acosta",
+        "correo": "Danielacosta@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria de sistemas"
+    },
+    {
+        "codigo": 20231020070,
+        "nombre": "Andrey Gonzalez",
+        "correo": "acgonzalezc@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria de sistemas"
+    },
+    {
+        "codigo": 202402015022,
+        "nombre": "Sebastian Donado",
+        "correo": "Sebas@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria Civil"
+    }
+]

@@ -1,5 +1,7 @@
+from Entidades import Entidades
+
 # Clase Estudiante (estructura de los datos)
-class Estudiante:
+class Estudiante(Entidades):
     def __init__(self, codigo: int, nombre: str, correo: str, facultad: str, carrera: str):
         """
         Este método será responsable de crear una nueva instancia de estudiante
