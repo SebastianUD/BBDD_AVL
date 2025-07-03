@@ -38,7 +38,7 @@ class InterfazInteractiva:
         print("   GESTOR DE BASE DE DATOS - ÁRBOLES AVL")
         print("="*50)
         print("1. Agregar estudiante")
-        print("2. Buscar estudiante por código")
+        print("2. Buscar estudiante por campo")
         print("3. Actualizar estudiante")
         print("4. Eliminar estudiante")
         print("5. Mostrar todos los estudiantes (Inorden)")
@@ -120,19 +120,78 @@ class InterfazInteractiva:
             print(f"\n[ÉXITO] Estudiante agregado correctamente.")
             self.gestor.mostrar_arbol_visual()
 
-    def menu_buscar_codigo(self):
+    def menu_buscar_estudiante(self):
         """
-        Este método será responsable de manejar el menú para buscar un estudiante por código
+        Este método permite buscar un estudiante por código, nombre, correo, facultad o carrera.
+        Para código, nombre y correo muestra un solo resultado.
+        Para facultad y carrera muestra todos los estudiantes coincidentes.
+        """
+        print("\n--- BUSCAR ESTUDIANTE ---")
+        print("1. Buscar por código")
+        print("2. Buscar por nombre")
+        print("3. Buscar por correo")
+        print("4. Buscar por facultad")
+        print("5. Buscar por carrera")
 
-        """
-        print("\n--- BUSCAR POR CÓDIGO ---")
-        codigo = self.obtener_codigo("Ingrese el código a buscar: ")
-        if codigo is not None:
-            estudiante = self.gestor.buscar_por_codigo(codigo)
-            if estudiante:
-                print(f"\n[ENCONTRADO] {estudiante}")
-            else:
-                print(f"\n[NO ENCONTRADO] No existe estudiante con código {codigo}")
+        opcion = input("Seleccione una opción: ").strip()
+
+        if opcion == '1':
+            codigo = self.obtener_codigo("Ingrese el código a buscar: ")
+            if codigo is not None:
+                estudiante = self.gestor.buscar_por_codigo(codigo)
+                if estudiante:
+                    print(f"\n[ENCONTRADO] {estudiante}")
+                else:
+                    print(f"\n[NO ENCONTRADO] No existe estudiante con código {codigo}")
+            return
+
+        campos_unicos = {'2': 'nombre', '3': 'correo'} #Campos con un unico posible resultado
+        campos_multiples = {'4': 'facultad', '5': 'carrera'} #Campos con múltiples posibles resultados
+
+        if opcion in campos_unicos or opcion in campos_multiples:
+            campo = campos_unicos.get(opcion) or campos_multiples.get(opcion)
+            valor_buscado = input(f"Ingrese el {campo} a buscar: ").strip().lower()
+
+            if not valor_buscado:
+                print(f"[ERROR] El {campo} no puede estar vacío.")
+                return
+
+            try:
+                with open(self.gestor.archivo_json, "r", encoding="utf-8") as archivo:
+                    estudiantes = json.load(archivo)
+
+                    if opcion in campos_unicos:
+                        for d in estudiantes:
+                            if d[campo].strip().lower() == valor_buscado:
+                                codigo = d["codigo"]
+                                estudiante = self.gestor.buscar_por_codigo(codigo)
+                                if estudiante:
+                                    print(f"\n[ENCONTRADO] {estudiante}")
+                                else:
+                                    print(f"\n[ERROR] Estudiante con código {codigo} no encontrado.")
+                                return
+                        print(f"\n[NO ENCONTRADO] No se encontró ningún estudiante con ese {campo}")
+
+                    else:  # Facultad o carrera (múltiples resultados)
+                        encontrados = []
+                        for d in estudiantes:
+                            if d[campo].strip().lower() == valor_buscado:
+                                codigo = d["codigo"]
+                                estudiante = self.gestor.buscar_por_codigo(codigo)
+                                if estudiante:
+                                    encontrados.append(estudiante)
+
+                        if encontrados:
+                            print(f"\n[ENCONTRADOS] {len(encontrados)} estudiantes con {campo} = {valor_buscado}:")
+                            for e in encontrados:
+                                print(f"- {e}")
+                        else:
+                            print(f"\n[NO ENCONTRADO] No se encontraron estudiantes con {campo} = {valor_buscado}")
+
+            except Exception as e:
+                print(f"[ERROR] No se pudo abrir el archivo JSON: {e}")
+        else:
+            print("\n[ERROR] Opción no válida.")
 
     def menu_actualizar(self):
         """
@@ -153,7 +212,7 @@ class InterfazInteractiva:
         print("\nIngrese los nuevos datos (Enter para mantener el actual):")
         
         
-        print("\nNo se puede actualizar el código del estudiante (es una clave primaria).")
+        print("No se puede actualizar el código del estudiante (es una clave primaria).")
         # Obtener resto de datos con valores por defecto
         nuevo_nombre = input(f"Nombre [{estudiante_actual.nombre}]: ") or estudiante_actual.nombre
         nuevo_correo = input(f"Correo [{estudiante_actual.correo}]: ") or estudiante_actual.correo
@@ -198,7 +257,7 @@ class InterfazInteractiva:
         """
         opciones = {
             '1': self.menu_agregar,
-            '2': self.menu_buscar_codigo,
+            '2': self.menu_buscar_estudiante,
             '3': self.menu_actualizar,
             '4': self.menu_eliminar,
             '5': self.gestor.mostrar_inorden,

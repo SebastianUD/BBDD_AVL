@@ -1,5 +1,12 @@
 [
     {
+        "codigo": 20211020070,
+        "nombre": "James Rodriguez",
+        "correo": "jamezrodri@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria de sistemas"
+    },
+    {
         "codigo": 20221020035,
         "nombre": "Daniel Acosta",
         "correo": "Danielacosta@udistrital.edu.co",
@@ -7,8 +14,15 @@
         "carrera": "Ingenieria de sistemas"
     },
     {
+        "codigo": 20222020054,
+        "nombre": "Sergio Agamez",
+        "correo": "SergioAgam@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria de sistemas"
+    },
+    {
         "codigo": 20231020070,
-        "nombre": "Andrey Gonzalez C",
+        "nombre": "Andrey Gonzalez",
         "correo": "andreyg@udistrital.edu.co",
         "facultad": "Ingenieria",
         "carrera": "Ingenieria de sistemas"
