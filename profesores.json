@@ -2,61 +2,61 @@
   {
     "codigo": 1001,
     "nombre": "Dr. Carlos Andrés Martínez",
-    "correo": "carlos.martinez@universidad.edu.co",
+    "correo": "carlos.martinez@udistrital.edu.co",
     "vinculacion": "Planta"
   },
   {
     "codigo": 1002,
     "nombre": "Dra. María Elena Rodríguez",
-    "correo": "maria.rodriguez@universidad.edu.co",
+    "correo": "maria.rodriguez@udistrital.edu.co",
     "vinculacion": "Planta"
   },
   {
     "codigo": 1003,
     "nombre": "MSc. Juan Pablo Hernández",
-    "correo": "juan.hernandez@universidad.edu.co",
+    "correo": "juan.hernandez@udistrital.edu.co",
     "vinculacion": "Cátedra"
   },
   {
     "codigo": 1004,
     "nombre": "Dr. Ana Sofía González",
-    "correo": "ana.gonzalez@universidad.edu.co",
+    "correo": "ana.gonzalez@udistrital.edu.co",
     "vinculacion": "Planta"
   },
   {
     "codigo": 1005,
     "nombre": "MSc. Luis Fernando Torres",
-    "correo": "luis.torres@universidad.edu.co",
+    "correo": "luis.torres@udistrital.edu.co",
     "vinculacion": "Ocasional"
   },
   {
     "codigo": 1006,
     "nombre": "Dra. Patricia Jiménez",
-    "correo": "patricia.jimenez@universidad.edu.co",
+    "correo": "patricia.jimenez@udistrital.edu.co",
     "vinculacion": "Planta"
   },
   {
     "codigo": 1007,
     "nombre": "Dr. Roberto Silva",
-    "correo": "roberto.silva@universidad.edu.co",
+    "correo": "roberto.silva@udistrital.edu.co",
     "vinculacion": "Visitante"
   },
   {
     "codigo": 1008,
     "nombre": "MSc. Sandra Milena López",
-    "correo": "sandra.lopez@universidad.edu.co",
+    "correo": "sandra.lopez@udistrital.edu.co",
     "vinculacion": "Cátedra"
   },
   {
     "codigo": 1009,
     "nombre": "Dr. Miguel Ángel Vargas",
-    "correo": "miguel.vargas@universidad.edu.co",
+    "correo": "miguel.vargas@udistrital.edu.co",
     "vinculacion": "Planta"
   },
   {
     "codigo": 1010,
     "nombre": "Dra. Carmen Rosa Delgado",
-    "correo": "carmen.delgado@universidad.edu.co",
+    "correo": "carmen.delgado@udistrital.edu.co",
     "vinculacion": "Planta"
   }  
 ]
