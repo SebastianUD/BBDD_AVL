@@ -1,21 +1,24 @@
 import os
 import json
-from typing import Optional, List
+from typing import Optional, List, Type
 from ArbolAVL import ArbolAVL
-from Estudiante import Estudiante
+from EntidadBase import EntidadBase
 from NodoAVL import NodoAVL
-from IGestorBD import IGestorBD
 
-class GestorBD(IGestorBD):
-    def __init__(self, archivo_json="estudiantes.json"):
+class GestorBDGenerico:
+    def __init__(self, archivo_json: str, clase_entidad: Type[EntidadBase], nombre_entidad: str):
         """
-        Este método será responsable de inicializar el gestor de base de datos
+        Este método será responsable de inicializar el gestor de base de datos genérico
 
         Args:
             archivo_json (str): El nombre del archivo JSON donde se almacenan los datos
+            clase_entidad (Type[EntidadBase]): La clase de la entidad a gestionar
+            nombre_entidad (str): El nombre de la entidad en singular (para mensajes)
         """
         self.directorio_actual = os.path.dirname(os.path.abspath(__file__))
         self.archivo_json = os.path.join(self.directorio_actual, archivo_json)
+        self.clase_entidad = clase_entidad
+        self.nombre_entidad = nombre_entidad
         self.arbol = ArbolAVL()
         self.cargar_datos()
 
@@ -27,10 +30,10 @@ class GestorBD(IGestorBD):
             with open(self.archivo_json, "r", encoding="utf-8") as archivo:
                 datos = json.load(archivo)
                 if datos:
-                    print(f"[INFO] Cargando {len(datos)} estudiantes desde el archivo...")
+                    print(f"[INFO] Cargando {len(datos)} {self.nombre_entidad}s desde el archivo...")
                     for d in datos:
-                        estudiante = Estudiante.from_dict(d)
-                        self.arbol.raiz = self.arbol.insertar(self.arbol.raiz, estudiante, mostrar_mensajes=False)
+                        entidad = self.clase_entidad.from_dict(d)
+                        self.arbol.raiz = self.arbol.insertar(self.arbol.raiz, entidad, mostrar_mensajes=False)
         except FileNotFoundError:
             print(f"[INFO] Archivo {self.archivo_json} no encontrado. Creando nuevo archivo vacío...")
             with open(self.archivo_json, "w", encoding="utf-8") as archivo:
@@ -57,67 +60,67 @@ class GestorBD(IGestorBD):
         """
         if nodo:
             self._recolectar_datos(nodo.izquierda, datos)
-            datos.append(nodo.estudiante.to_dict())
+            datos.append(nodo.entidad.to_dict())
             self._recolectar_datos(nodo.derecha, datos)
 
-    def agregar_estudiante(self, estudiante: Estudiante):
+    def agregar_entidad(self, entidad: EntidadBase):
         """
-        Este método será responsable de agregar un estudiante al árbol y guardarlo en JSON
+        Este método será responsable de agregar una entidad al árbol y guardarlo en JSON
 
         Args:
-            estudiante (Estudiante): El estudiante que se va a agregar
+            entidad (EntidadBase): La entidad que se va a agregar
         """
-        self.arbol.agregar_estudiante(estudiante)
+        self.arbol.agregar_entidad(entidad)
         self.guardar_en_json()
 
-    def eliminar_estudiante(self, codigo: int) -> bool:
+    def eliminar_entidad(self, codigo: int) -> bool:
         """
-        Este método será responsable de eliminar un estudiante del árbol y actualizar el JSON
+        Este método será responsable de eliminar una entidad del árbol y actualizar el JSON
 
         Args:
-            codigo (int): El código del estudiante que se va a eliminar
+            codigo (int): El código de la entidad que se va a eliminar
 
         Returns:
-            bool: True si el estudiante fue eliminado exitosamente, False si no existía
+            bool: True si la entidad fue eliminada exitosamente, False si no existía
         """
         if self.arbol.buscar_por_codigo(codigo):
-            self.arbol.eliminar_estudiante(codigo)
+            self.arbol.eliminar_entidad(codigo)
             self.guardar_en_json()
             return True
         return False
 
-    def actualizar_estudiante(self, codigo: int, nuevo_estudiante: Estudiante):
+    def actualizar_entidad(self, codigo: int, nueva_entidad: EntidadBase):
         """
-        Este método será responsable de actualizar un estudiante en el árbol y guardarlo en JSON
+        Este método será responsable de actualizar una entidad en el árbol y guardarlo en JSON
 
         Args:
-            codigo (int): El código del estudiante que se va a actualizar
-            nuevo_estudiante (Estudiante): Los nuevos datos del estudiante
+            codigo (int): El código de la entidad que se va a actualizar
+            nueva_entidad (EntidadBase): Los nuevos datos de la entidad
         """
-        self.arbol.actualizar_estudiante(codigo, nuevo_estudiante)
+        self.arbol.actualizar_entidad(codigo, nueva_entidad)
         self.guardar_en_json()
 
-    def buscar_por_codigo(self, codigo: int) -> Optional[Estudiante]:
+    def buscar_por_codigo(self, codigo: int) -> Optional[EntidadBase]:
         """
-        Este método será responsable de buscar un estudiante por su código
+        Este método será responsable de buscar una entidad por su código
 
         Args:
-            codigo (int): El código del estudiante que se busca
+            codigo (int): El código de la entidad que se busca
 
         Returns:
-            Optional[Estudiante]: El estudiante encontrado o None si no existe
+            Optional[EntidadBase]: La entidad encontrada o None si no existe
         """
         return self.arbol.buscar_por_codigo(codigo)
 
     def mostrar_inorden(self):
         """
-        Este método será responsable de mostrar todos los estudiantes en orden por código
+        Este método será responsable de mostrar todas las entidades en orden por código
         """
-        print("\n[LISTADO] Estudiantes en orden por código:")
+        print(f"\n[LISTADO] {self.nombre_entidad}s en orden por código:")
         if self.arbol.raiz:
             self.arbol.inorden(self.arbol.raiz)
         else:
-            print("No hay estudiantes registrados.")
+            print(f"No hay {self.nombre_entidad}s registrados.")
 
     def mostrar_arbol_visual(self):
         """

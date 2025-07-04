@@ -1,5 +1,5 @@
 from typing import Optional
-from Estudiante import Estudiante
+from EntidadBase import EntidadBase
 from NodoAVL import NodoAVL
 from binarytree import Node as BinaryTreeNode
 
@@ -67,7 +67,7 @@ class ArbolAVL:
         self.actualizar_altura(y)
         self.actualizar_altura(x)
         
-        print(f"[BALANCEO] Rotación derecha en nodo {y.estudiante.codigo}")
+        print(f"[BALANCEO] Rotación derecha en nodo {y.entidad.get_codigo()}")
         return x
 
     def rotacion_izquierda(self, x: NodoAVL) -> NodoAVL:
@@ -91,7 +91,7 @@ class ArbolAVL:
         self.actualizar_altura(x)
         self.actualizar_altura(y)
         
-        print(f"[BALANCEO] Rotación izquierda en nodo {x.estudiante.codigo}")
+        print(f"[BALANCEO] Rotación izquierda en nodo {x.entidad.get_codigo()}")
         return y
 
     def balancear_nodo(self, nodo: NodoAVL, codigo: int) -> NodoAVL:
@@ -100,7 +100,7 @@ class ArbolAVL:
 
         Args:
             nodo (NodoAVL): El nodo que se va a balancear
-            codigo (int): El código del estudiante que se insertó/eliminó para determinar el tipo de rotación
+            codigo (int): El código de la entidad que se insertó/eliminó para determinar el tipo de rotación
 
         Returns:
             NodoAVL: El nodo balanceado (puede ser el mismo nodo si no necesitaba balanceo)
@@ -108,62 +108,61 @@ class ArbolAVL:
         balance = self.obtener_balance(nodo)
         
         if abs(balance) > 1:
-            print(f"[BALANCE] Nodo {nodo.estudiante.codigo} tiene balance {balance}")
+            print(f"[BALANCE] Nodo {nodo.entidad.get_codigo()} tiene balance {balance}")
         
         # Caso Izquierda-Izquierda
-        if balance < -1 and codigo < nodo.izquierda.estudiante.codigo:
+        if balance < -1 and codigo < nodo.izquierda.entidad.get_codigo():
             return self.rotacion_derecha(nodo)
         
         # Caso Derecha-Derecha
-        if balance > 1 and codigo > nodo.derecha.estudiante.codigo:
+        if balance > 1 and codigo > nodo.derecha.entidad.get_codigo():
             return self.rotacion_izquierda(nodo)
         
         # Caso Izquierda-Derecha
-        if balance < -1 and codigo > nodo.izquierda.estudiante.codigo:
+        if balance < -1 and codigo > nodo.izquierda.entidad.get_codigo():
             nodo.izquierda = self.rotacion_izquierda(nodo.izquierda)
             return self.rotacion_derecha(nodo)
         
         # Caso Derecha-Izquierda
-        if balance > 1 and codigo < nodo.derecha.estudiante.codigo:
+        if balance > 1 and codigo < nodo.derecha.entidad.get_codigo():
             nodo.derecha = self.rotacion_derecha(nodo.derecha)
             return self.rotacion_izquierda(nodo)
         
         return nodo
 
-    def insertar(self, nodo: Optional[NodoAVL], estudiante: Estudiante, mostrar_mensajes: bool = True) -> NodoAVL:
+    def insertar(self, nodo: Optional[NodoAVL], entidad: EntidadBase, mostrar_mensajes: bool = True) -> NodoAVL:
         """
-        Este método será responsable de insertar un nuevo estudiante en el árbol AVL
+        Este método será responsable de insertar una nueva entidad en el árbol AVL
 
         Args:
             nodo (Optional[NodoAVL]): El nodo actual donde se intenta insertar
-            estudiante (Estudiante): El estudiante que se va a insertar
+            entidad (EntidadBase): La entidad que se va a insertar
             mostrar_mensajes (bool): Si se deben mostrar mensajes de debug durante la inserción
 
         Returns:
             NodoAVL: El nodo raíz del subárbol después de la inserción y balanceo
         """
-        # Inserción normal BST
         if not nodo:
             if mostrar_mensajes:
-                print(f"[INSERCIÓN] Nuevo nodo creado con código {estudiante.codigo}")
-            return NodoAVL(estudiante)
+                print(f"[INSERCIÓN] Nuevo nodo creado con código {entidad.get_codigo()}")
+            return NodoAVL(entidad)
 
-        if estudiante.codigo < nodo.estudiante.codigo:
-            nodo.izquierda = self.insertar(nodo.izquierda, estudiante, mostrar_mensajes)
-        elif estudiante.codigo > nodo.estudiante.codigo:
-            nodo.derecha = self.insertar(nodo.derecha, estudiante, mostrar_mensajes)
+        if entidad.get_codigo() < nodo.entidad.get_codigo():
+            nodo.izquierda = self.insertar(nodo.izquierda, entidad, mostrar_mensajes)
+        elif entidad.get_codigo() > nodo.entidad.get_codigo():
+            nodo.derecha = self.insertar(nodo.derecha, entidad, mostrar_mensajes)
         else:
             if mostrar_mensajes:
-                print(f"[ADVERTENCIA] Código {estudiante.codigo} ya existe. No se insertó.")
+                print(f"[ADVERTENCIA] Código {entidad.get_codigo()} ya existe. No se insertó.")
             return nodo
 
         # Actualizar altura y balancear
         self.actualizar_altura(nodo)
-        return self.balancear_nodo(nodo, estudiante.codigo)
+        return self.balancear_nodo(nodo, entidad.get_codigo())
 
     def obtener_maximo_valor_nodo(self, nodo: NodoAVL) -> NodoAVL:
         """
-        Este método encontrará el nodo con el valor máximo en el subárbol
+        Este método encontrará el nodo con el valor máximo en el subárbol izquierdo
 
         Args:
             nodo (NodoAVL): El nodo raíz del subárbol donde buscar el máximo
@@ -177,11 +176,11 @@ class ArbolAVL:
 
     def eliminar(self, nodo: Optional[NodoAVL], codigo: int) -> Optional[NodoAVL]:
         """
-        Este método será responsable de eliminar un estudiante del árbol AVL
+        Este método será responsable de eliminar una entidad del árbol AVL
 
         Args:
-            nodo (Optional[NodoAVL]): El nodo actual donde se busca el estudiante a eliminar
-            codigo (int): El código del estudiante que se va a eliminar
+            nodo (Optional[NodoAVL]): El nodo actual donde se busca la entidad a eliminar
+            codigo (int): El código de la entidad que se va a eliminar
 
         Returns:
             Optional[NodoAVL]: El nodo raíz del subárbol después de la eliminación y balanceo
@@ -191,9 +190,9 @@ class ArbolAVL:
             return nodo
 
         # Búsqueda del nodo a eliminar
-        if codigo < nodo.estudiante.codigo:
+        if codigo < nodo.entidad.get_codigo():
             nodo.izquierda = self.eliminar(nodo.izquierda, codigo)
-        elif codigo > nodo.estudiante.codigo:
+        elif codigo > nodo.entidad.get_codigo():
             nodo.derecha = self.eliminar(nodo.derecha, codigo)
         else:
             print(f"[ELIMINACIÓN] Eliminando nodo con código {codigo}")
@@ -206,8 +205,8 @@ class ArbolAVL:
             
             # Nodo con dos hijos: obtener el predecesor
             temp = self.obtener_maximo_valor_nodo(nodo.izquierda)
-            nodo.estudiante = temp.estudiante
-            nodo.izquierda = self.eliminar(nodo.izquierda, temp.estudiante.codigo)
+            nodo.entidad = temp.entidad
+            nodo.izquierda = self.eliminar(nodo.izquierda, temp.entidad.get_codigo())
 
         # Actualizar altura
         self.actualizar_altura(nodo)
@@ -216,7 +215,7 @@ class ArbolAVL:
         balance = self.obtener_balance(nodo)
         
         if abs(balance) > 1:
-            print(f"[BALANCE] Nodo {nodo.estudiante.codigo} tiene balance {balance}")
+            print(f"[BALANCE] Nodo {nodo.entidad.get_codigo()} tiene balance {balance}")
 
         # Casos de balanceo
         if balance < -1:
@@ -235,39 +234,39 @@ class ArbolAVL:
 
         return nodo
 
-    def agregar_estudiante(self, estudiante: Estudiante):
+    def agregar_entidad(self, entidad: EntidadBase):
         """
-        Este método será responsable de agregar un estudiante al árbol AVL
+        Este método será responsable de agregar una entidad al árbol AVL
 
         Args:
-            estudiante (Estudiante): El estudiante que se va a agregar al árbol
+            entidad (EntidadBase): La entidad que se va a agregar al árbol
         """
-        print(f"\n[OPERACIÓN] Insertando estudiante con código {estudiante.codigo}")
-        self.raiz = self.insertar(self.raiz, estudiante)
+        print(f"\n[OPERACIÓN] Insertando entidad con código {entidad.get_codigo()}")
+        self.raiz = self.insertar(self.raiz, entidad)
 
-    def eliminar_estudiante(self, codigo: int):
+    def eliminar_entidad(self, codigo: int):
         """
-        Este método será responsable de eliminar un estudiante del árbol AVL
+        Este método será responsable de eliminar una entidad del árbol AVL
 
         Args:
-            codigo (int): El código del estudiante que se va a eliminar
+            codigo (int): El código de la entidad que se va a eliminar
         """
-        print(f"\n[OPERACIÓN] Eliminando estudiante con código {codigo}")
+        print(f"\n[OPERACIÓN] Eliminando entidad con código {codigo}")
         self.raiz = self.eliminar(self.raiz, codigo)
 
-    def actualizar_estudiante(self, codigo: int, nuevo_estudiante: Estudiante):
+    def actualizar_entidad(self, codigo: int, nueva_entidad: EntidadBase):
         """
-        Este método será responsable de actualizar un estudiante eliminando el antiguo e insertando el nuevo
+        Este método será responsable de actualizar una entidad eliminando la antigua e insertando la nueva
 
         Args:
-            codigo (int): El código del estudiante que se va a actualizar
-            nuevo_estudiante (Estudiante): Los nuevos datos del estudiante
+            codigo (int): El código de la entidad que se va a actualizar
+            nueva_entidad (EntidadBase): Los nuevos datos de la entidad
         """
-        print(f"\n[OPERACIÓN] Actualizando estudiante con código {codigo}")
+        print(f"\n[OPERACIÓN] Actualizando entidad con código {codigo}")
         self.raiz = self.eliminar(self.raiz, codigo)
-        self.raiz = self.insertar(self.raiz, nuevo_estudiante)
-        if codigo == nuevo_estudiante.codigo:
-            print(f"[ACTUALIZACIÓN] Estudiante con código {codigo} actualizado.")
+        self.raiz = self.insertar(self.raiz, nueva_entidad)
+        if codigo == nueva_entidad.get_codigo():
+            print(f"[ACTUALIZACIÓN] Entidad con código {codigo} actualizada.")
 
     def inorden(self, nodo: Optional[NodoAVL]):
         """
@@ -278,24 +277,24 @@ class ArbolAVL:
         """
         if nodo:
             self.inorden(nodo.izquierda)
-            print(f"{nodo.estudiante.codigo} - {nodo.estudiante.nombre}")
+            print(f"{nodo.entidad}")
             self.inorden(nodo.derecha)
 
-    def buscar_por_codigo(self, codigo: int) -> Optional[Estudiante]:
+    def buscar_por_codigo(self, codigo: int) -> Optional[EntidadBase]:
         """
-        Este método será responsable de buscar un estudiante por su código usando búsqueda binaria
+        Este método será responsable de buscar una entidad por su código usando búsqueda binaria
 
         Args:
-            codigo (int): El código del estudiante que se busca
+            codigo (int): El código de la entidad que se busca
 
         Returns:
-            Optional[Estudiante]: El estudiante encontrado o None si no existe
+            Optional[EntidadBase]: La entidad encontrada o None si no existe
         """
         nodo = self.raiz
         while nodo:
-            if codigo == nodo.estudiante.codigo:
-                return nodo.estudiante
-            elif codigo < nodo.estudiante.codigo:
+            if codigo == nodo.entidad.get_codigo():
+                return nodo.entidad
+            elif codigo < nodo.entidad.get_codigo():
                 nodo = nodo.izquierda
             else:
                 nodo = nodo.derecha
@@ -314,7 +313,7 @@ class ArbolAVL:
         if not nodo:
             return None
         
-        bt_node = BinaryTreeNode(nodo.estudiante.codigo)
+        bt_node = BinaryTreeNode(nodo.entidad.get_codigo())
         bt_node.left = self.convertir_a_binarytree(nodo.izquierda)
         bt_node.right = self.convertir_a_binarytree(nodo.derecha)
         
