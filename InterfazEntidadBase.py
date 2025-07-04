@@ -100,7 +100,8 @@ class InterfazEntidadBase(ABC):
 
     def menu_buscar_entidad(self):
         """
-        Este método permite buscar una entidad por diferentes campos
+        Este método será responsable de manejar el menú para buscar una entidad por diferentes campos
+        Permite búsqueda por código o por otros campos específicos de la entidad
         """
         print(f"\n--- BUSCAR {self.nombre_entidad.upper()} ---")
         campos = self.get_campos_busqueda()
@@ -124,7 +125,7 @@ class InterfazEntidadBase(ABC):
 
         if opcion in campos and opcion != '1':
             campo = campos[opcion]
-            valor_buscado = input(f"Ingrese el {campo} a buscar: ").strip().lower()
+            valor_buscado = input(f"Ingrese el {campo} a buscar: ").strip()
 
             if not valor_buscado:
                 print(f"[ERROR] El {campo} no puede estar vacío.")
@@ -135,12 +136,32 @@ class InterfazEntidadBase(ABC):
                     entidades = json.load(archivo)
                     encontrados = []
                     
+                    # Detectar si el campo es numérico
+                    campos_numericos = ["creditos", "horas", "numero_creditos", "numero_horas"]
+                    es_numerico = any(num_campo in campo.lower().replace(" ", "_") for num_campo in campos_numericos)
+                    
                     for d in entidades:
-                        if campo in d and d[campo].strip().lower() == valor_buscado:
-                            codigo = d["codigo"]
-                            entidad = self.gestor.buscar_por_codigo(codigo)
-                            if entidad:
-                                encontrados.append(entidad)
+                        if campo in d:
+                            valor_entidad = d[campo]
+                            coincide = False
+                            
+                            if es_numerico:
+                                # Para campos numéricos, comparar como números
+                                try:
+                                    if int(valor_entidad) == int(valor_buscado):
+                                        coincide = True
+                                except (ValueError, TypeError):
+                                    continue
+                            else:
+                                # Para campos de texto, comparar en minúsculas
+                                if str(valor_entidad).strip().lower() == valor_buscado.lower():
+                                    coincide = True
+                            
+                            if coincide:
+                                codigo = d["codigo"]
+                                entidad = self.gestor.buscar_por_codigo(codigo)
+                                if entidad:
+                                    encontrados.append(entidad)
 
                     if encontrados:
                         print(f"\n[ENCONTRADOS] {len(encontrados)} {self.nombre_entidad}(s) con {campo} = {valor_buscado}:")
@@ -149,8 +170,12 @@ class InterfazEntidadBase(ABC):
                     else:
                         print(f"\n[NO ENCONTRADO] No se encontraron {self.nombre_entidad}s con {campo} = {valor_buscado}")
 
+            except FileNotFoundError:
+                print(f"[ERROR] No se pudo encontrar el archivo JSON: {self.gestor.archivo_json}")
+            except json.JSONDecodeError:
+                print(f"[ERROR] El archivo JSON está corrupto o mal formateado.")
             except Exception as e:
-                print(f"[ERROR] No se pudo abrir el archivo JSON: {e}")
+                print(f"[ERROR] Error inesperado al buscar: {e}")
         else:
             print("\n[ERROR] Opción no válida.")
 
