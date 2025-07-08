@@ -1,0 +1,72 @@
+[
+    {
+        "codigo": 20211020070,
+        "nombre": "James Rodriguez",
+        "correo": "jamezrodri@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria de sistemas"
+    },
+    {
+        "codigo": 20221020035,
+        "nombre": "Daniel Acosta",
+        "correo": "Danielacosta@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria de sistemas"
+    },
+    {
+        "codigo": 20222020054,
+        "nombre": "Sergio Agamez",
+        "correo": "SergioAgam@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria de sistemas"
+    },
+    {
+        "codigo": 20231020070,
+        "nombre": "Andrey Gonzalez",
+        "correo": "andreyg@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria de sistemas"
+    },
+    {
+        "codigo": 202402015022,
+        "nombre": "Sebastian Donado",
+        "correo": "Sebas@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria Civil"
+    },
+    {
+        "codigo": 20191020045,
+        "nombre": "Maria Fernanda Castro",
+        "correo": "mariacastro@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria Industrial"
+    },
+    {
+        "codigo": 20201020088,
+        "nombre": "Carlos Alberto Mendez",
+        "correo": "carlosmendez@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria Electronica"
+    },
+    {
+        "codigo": 20232020067,
+        "nombre": "Ana Sofia Ramirez",
+        "correo": "anaramirez@udistrital.edu.co",
+        "facultad": "Ciencias",
+        "carrera": "Matematicas"
+    },
+    {
+        "codigo": 20241020033,
+        "nombre": "Diego Fernando Lopez",
+        "correo": "diegolopez@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria de sistemas"
+    },
+    {
+        "codigo": 20192020091,
+        "nombre": "Valentina Torres",
+        "correo": "valentinatorres@udistrital.edu.co",
+        "facultad": "Ciencias",
+        "carrera": "Fisica"
+    }
+]
