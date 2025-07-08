@@ -1,5 +1,47 @@
 [
     {
+        "codigo": 154654768,
+        "nombre": "laura",
+        "correo": "lau",
+        "facultad": "inge",
+        "carrera": "sistemas"
+    },
+    {
+        "codigo": 475485246,
+        "nombre": "sebas perez",
+        "correo": "seper",
+        "facultad": "ingenieria",
+        "carrera": "electronica"
+    },
+    {
+        "codigo": 487874798,
+        "nombre": "laura perez",
+        "correo": "laur",
+        "facultad": "ingenieria",
+        "carrera": "sistemas"
+    },
+    {
+        "codigo": 2025031546,
+        "nombre": "Daniel Perez",
+        "correo": "danPerez",
+        "facultad": "Ingeniería",
+        "carrera": "sistemas"
+    },
+    {
+        "codigo": 20192020091,
+        "nombre": "Valentina Torres",
+        "correo": "valentinatorres@udistrital.edu.co",
+        "facultad": "Ciencias",
+        "carrera": "Fisica"
+    },
+    {
+        "codigo": 20201020088,
+        "nombre": "Carlo Mendez",
+        "correo": "carmendez",
+        "facultad": "Fisica",
+        "carrera": "fisica"
+    },
+    {
         "codigo": 20211020070,
         "nombre": "James Rodriguez",
         "correo": "jamezrodri@udistrital.edu.co",
@@ -21,32 +63,25 @@
         "carrera": "Ingenieria de sistemas"
     },
     {
+        "codigo": 20222020165,
+        "nombre": "Laura",
+        "correo": "lauS@gmail.com",
+        "facultad": "ingenieria",
+        "carrera": "sistemas"
+    },
+    {
+        "codigo": 20222025001,
+        "nombre": "David Gonzalez",
+        "correo": "dg@gmail.com",
+        "facultad": "asab",
+        "carrera": "artes escenicas"
+    },
+    {
         "codigo": 20231020070,
         "nombre": "Andrey Gonzalez",
         "correo": "andreyg@udistrital.edu.co",
         "facultad": "Ingenieria",
         "carrera": "Ingenieria de sistemas"
-    },
-    {
-        "codigo": 202402015022,
-        "nombre": "Sebastian Donado",
-        "correo": "Sebas@udistrital.edu.co",
-        "facultad": "Ingenieria",
-        "carrera": "Ingenieria Civil"
-    },
-    {
-        "codigo": 20191020045,
-        "nombre": "Maria Fernanda Castro",
-        "correo": "mariacastro@udistrital.edu.co",
-        "facultad": "Ingenieria",
-        "carrera": "Ingenieria Industrial"
-    },
-    {
-        "codigo": 20201020088,
-        "nombre": "Carlos Alberto Mendez",
-        "correo": "carlosmendez@udistrital.edu.co",
-        "facultad": "Ingenieria",
-        "carrera": "Ingenieria Electronica"
     },
     {
         "codigo": 20232020067,
@@ -63,10 +98,17 @@
         "carrera": "Ingenieria de sistemas"
     },
     {
-        "codigo": 20192020091,
-        "nombre": "Valentina Torres",
-        "correo": "valentinatorres@udistrital.edu.co",
-        "facultad": "Ciencias",
+        "codigo": 202402015022,
+        "nombre": "Sebastian Donado",
+        "correo": "Sebas@udistrital.edu.co",
+        "facultad": "Ingenieria",
+        "carrera": "Ingenieria Civil"
+    },
+    {
+        "codigo": 235487698152415,
+        "nombre": "Danna Perez",
+        "correo": "danPerez",
+        "facultad": "ciencias",
         "carrera": "Fisica"
     }
 ]

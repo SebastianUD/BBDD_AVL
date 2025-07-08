@@ -1,62 +1,50 @@
 [
-  {
-    "codigo": 1001,
-    "nombre": "Dr. Carlos Andrés Martínez",
-    "correo": "carlos.martinez@udistrital.edu.co",
-    "vinculacion": "Planta"
-  },
-  {
-    "codigo": 1002,
-    "nombre": "Dra. María Elena Rodríguez",
-    "correo": "maria.rodriguez@udistrital.edu.co",
-    "vinculacion": "Planta"
-  },
-  {
-    "codigo": 1003,
-    "nombre": "MSc. Juan Pablo Hernández",
-    "correo": "juan.hernandez@udistrital.edu.co",
-    "vinculacion": "Cátedra"
-  },
-  {
-    "codigo": 1004,
-    "nombre": "Dr. Ana Sofía González",
-    "correo": "ana.gonzalez@udistrital.edu.co",
-    "vinculacion": "Planta"
-  },
-  {
-    "codigo": 1005,
-    "nombre": "MSc. Luis Fernando Torres",
-    "correo": "luis.torres@udistrital.edu.co",
-    "vinculacion": "Ocasional"
-  },
-  {
-    "codigo": 1006,
-    "nombre": "Dra. Patricia Jiménez",
-    "correo": "patricia.jimenez@udistrital.edu.co",
-    "vinculacion": "Planta"
-  },
-  {
-    "codigo": 1007,
-    "nombre": "Dr. Roberto Silva",
-    "correo": "roberto.silva@udistrital.edu.co",
-    "vinculacion": "Visitante"
-  },
-  {
-    "codigo": 1008,
-    "nombre": "MSc. Sandra Milena López",
-    "correo": "sandra.lopez@udistrital.edu.co",
-    "vinculacion": "Cátedra"
-  },
-  {
-    "codigo": 1009,
-    "nombre": "Dr. Miguel Ángel Vargas",
-    "correo": "miguel.vargas@udistrital.edu.co",
-    "vinculacion": "Planta"
-  },
-  {
-    "codigo": 1010,
-    "nombre": "Dra. Carmen Rosa Delgado",
-    "correo": "carmen.delgado@udistrital.edu.co",
-    "vinculacion": "Planta"
-  }  
+    {
+        "codigo": 1001,
+        "nombre": "Dr. Carlos Andrés Martínez",
+        "correo": "carlos.martinez@udistrital.edu.co",
+        "vinculacion": "Planta"
+    },
+    {
+        "codigo": 1005,
+        "nombre": "MSc. Luis Fernando Torres",
+        "correo": "luis.torres@udistrital.edu.co",
+        "vinculacion": "Ocasional"
+    },
+    {
+        "codigo": 1006,
+        "nombre": "Dra. Patricia Jiménez",
+        "correo": "patricia.jimenez@udistrital.edu.co",
+        "vinculacion": "Planta"
+    },
+    {
+        "codigo": 1007,
+        "nombre": "Dr. Roberto Silva",
+        "correo": "roberto.silva@udistrital.edu.co",
+        "vinculacion": "Visitante"
+    },
+    {
+        "codigo": 1008,
+        "nombre": "MSc. Sandra Milena López",
+        "correo": "sandra.lopez@udistrital.edu.co",
+        "vinculacion": "Cátedra"
+    },
+    {
+        "codigo": 1009,
+        "nombre": "Dr. Miguel Ángel Vargas",
+        "correo": "miguel.vargas@udistrital.edu.co",
+        "vinculacion": "Planta"
+    },
+    {
+        "codigo": 1010,
+        "nombre": "Dra. Carmen Rosa Delgado",
+        "correo": "carmen.delgado@udistrital.edu.co",
+        "vinculacion": "Planta"
+    },
+    {
+        "codigo": 1015,
+        "nombre": "Fabian Garcia",
+        "correo": "fgarcia@gmail.com",
+        "vinculacion": "Cátedra"
+    }
 ]

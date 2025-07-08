@@ -52,7 +52,12 @@ class InterfazEstudiante(InterfazEntidadBase):
         if not all([nombre, correo, facultad, carrera]):
             print("[ERROR] Todos los campos son obligatorios.")
             return None
-            
+    
+        # Validar formato de correo básico
+        if '@' not in correo or '.' not in correo:
+            print("[ERROR] El correo debe tener un formato válido.")
+            return None
+                
         return Estudiante(codigo, nombre, correo, facultad, carrera)
     
     def get_campos_busqueda(self) -> dict:

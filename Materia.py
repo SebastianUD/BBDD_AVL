@@ -7,6 +7,9 @@ class Materia(EntidadBase):
         self.creditos = creditos
         self.horas_semana = horas_semana
     
+    def __str__(self):
+        return f"Código: {self.codigo}, Nombre: {self.nombre}, Créditos: {self.creditos}, Horas/semana: {self.horas_semana}"
+    
     def get_codigo(self) -> int:
         return self.codigo
     

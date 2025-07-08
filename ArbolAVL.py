@@ -280,6 +280,19 @@ class ArbolAVL:
             print(f"{nodo.entidad}")
             self.inorden(nodo.derecha)
 
+    def inorden_lista(self) -> list:
+        """
+        Devuelve una lista de entidades en orden ascendente por su código. Este método es útil para usarlo en la interfaz gráfica.
+        """
+        resultado = []
+        def recorrer(nodo):
+            if nodo:
+                recorrer(nodo.izquierda)
+                resultado.append(nodo.entidad)
+                recorrer(nodo.derecha)
+        recorrer(self.raiz)
+        return resultado
+
     def buscar_por_codigo(self, codigo: int) -> Optional[EntidadBase]:
         """
         Este método será responsable de buscar una entidad por su código usando búsqueda binaria
